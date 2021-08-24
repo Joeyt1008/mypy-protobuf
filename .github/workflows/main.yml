@@ -46,6 +46,7 @@ jobs:
               git clone https://github.com/yyuu/pyenv-virtualenv.git   $HOME/.pyenv/plugins/pyenv-virtualenv && \
               source $HOME/.bashrc && \
               pyenv install 3.8.11 && \
+              pip install protobuf && \
               export PATH="$HOME/.pyenv/bin:$PATH"
               eval "$(pyenv init -)"
               eval "$(pyenv init --path)"
