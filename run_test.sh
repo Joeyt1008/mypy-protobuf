@@ -7,7 +7,7 @@ PROTOC=${PROTOC:=protoc}
 PY_VER_MYPY_PROTOBUF=${PY_VER_MYPY_PROTOBUF:=3.9.6}
 PY_VER_MYPY_PROTOBUF_SHORT=$(echo $PY_VER_MYPY_PROTOBUF | cut -d. -f1-2)
 PY_VER_MYPY=${PY_VER_MYPY:=3.8.11}
-PY_VER_UNIT_TESTS="${PY_VER_UNIT_TESTS_3:=3.8.11} ${PY_VER_UNIT_TESTS_2:=2.7.18}"
+PY_VER_UNIT_TESTS="${PY_VER_UNIT_TESTS_3:=3.8.11}"
 
 # Clean out generated/ directory - except for .generated / __init__.py
 find test/generated -type f -not \( -name "*.expected" -or -name "__init__.py" \) -delete
@@ -117,26 +117,17 @@ for PY_VER in $PY_VER_UNIT_TESTS; do
         source $MYPY_VENV/bin/activate
 
         # Run mypy
-        # --python-version=2.7 chokes on the generated grpc files - so split them out here
-        FILES27="$(ls test/*.py | grep -v grpc)  $(find test/generated -name "*.pyi" | grep -v grpc)"
+       
         FILES38="test/"
-        if [ $PY_VER_MYPY_TARGET = "2.7" ]; then
-            FILES=$FILES27
-        else
-            FILES=$FILES38
-        fi
+        FILES=$FILES38
+        
         mypy --strict --custom-typeshed-dir=$CUSTOM_TYPESHED_DIR --python-executable=$UNIT_TESTS_VENV/bin/python --python-version=$PY_VER_MYPY_TARGET --pretty --show-error-codes $FILES
 
         # run mypy on negative-tests (expected mypy failures)
-        # --python-version=2.7 chokes on the generated grpc files - so split them out here
-        NEGATIVE_FILES_27="test_negative/negative.py test_negative/negative_2.7.py $FILES27"
+       
         NEGATIVE_FILES_38="test_negative/negative.py test_negative/negative_3.8.py $FILES38"
-        if [ $PY_VER_MYPY_TARGET = "2.7" ]; then
-            NEGATIVE_FILES=$NEGATIVE_FILES_27
-        else
-            NEGATIVE_FILES=$NEGATIVE_FILES_38
-        fi
-
+        NEGATIVE_FILES=$NEGATIVE_FILES_38
+        
         MYPY_OUTPUT=`mktemp -d`
         call_mypy() {
             # Write output to file. Make variant w/ omitted line numbers for easy diffing / CR
@@ -150,9 +141,7 @@ for PY_VER in $PY_VER_UNIT_TESTS; do
             echo -e "${RED}test_negative/output.expected.$PY_VER_MYPY_TARGET didnt match. Copying over for you. Now rerun${NC}"
 
             # Copy over all the mypy results for the developer.
-            call_mypy 2.7.18 $NEGATIVE_FILES_27
-            cp $MYPY_OUTPUT/mypy_output test_negative/output.expected.2.7
-            cp $MYPY_OUTPUT/mypy_output.omit_linenos test_negative/output.expected.2.7.omit_linenos
+            
             call_mypy 3.8.11 $NEGATIVE_FILES_38
             cp $MYPY_OUTPUT/mypy_output test_negative/output.expected.3.8
             cp $MYPY_OUTPUT/mypy_output.omit_linenos test_negative/output.expected.3.8.omit_linenos
