@@ -47,6 +47,7 @@ jobs:
               source $HOME/.bashrc && \
               pyenv install 3.8.11 && \
               pip install protobuf && \
+              apt install -y protobuf-compiler && \
               export PATH="$HOME/.pyenv/bin:$PATH"
               eval "$(pyenv init -)"
               eval "$(pyenv init --path)"
