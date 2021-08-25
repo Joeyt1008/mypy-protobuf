@@ -3,7 +3,9 @@
 RED="\033[0;31m"
 NC='\033[0m'
 PROTOC=${PROTOC:=protoc}
-
+pip install protobuf
+echo $PROTOC
+echo $protoc
 PY_VER_MYPY_PROTOBUF=${PY_VER_MYPY_PROTOBUF:=3.8.11}
 PY_VER_MYPY_PROTOBUF_SHORT=$(echo $PY_VER_MYPY_PROTOBUF | cut -d. -f1-2)
 PY_VER_MYPY=${PY_VER_MYPY:=3.8.11}
