@@ -2,9 +2,11 @@
 
 RED="\033[0;31m"
 NC='\033[0m'
-PROTOC=${PROTOC:=protoc}
-pip install protobuf
-apt install -y protobuf-compiler
+PROTOC_ZIP=protoc-3.17.3-linux-aarch_64.zip
+curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/$PROTOC_ZIP
+sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
+sudo unzip -o $PROTOC_ZIP -d /usr/local include/*
+PROTOC=${PROTOC_ZIP:=protoc}
 echo $PROTOC
 echo $protoc
 PY_VER_MYPY_PROTOBUF=${PY_VER_MYPY_PROTOBUF:=3.8.11}
