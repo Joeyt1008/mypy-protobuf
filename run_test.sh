@@ -4,6 +4,7 @@ RED="\033[0;31m"
 NC='\033[0m'
 PROTOC=${PROTOC:=protoc}
 pip install protobuf
+apt install -y protobuf-compiler
 echo $PROTOC
 echo $protoc
 PY_VER_MYPY_PROTOBUF=${PY_VER_MYPY_PROTOBUF:=3.8.11}
