@@ -13,6 +13,7 @@ PY_VER_MYPY_PROTOBUF=${PY_VER_MYPY_PROTOBUF:=3.8.11}
 PY_VER_MYPY_PROTOBUF_SHORT=$(echo $PY_VER_MYPY_PROTOBUF | cut -d. -f1-2)
 PY_VER_MYPY=${PY_VER_MYPY:=3.8.11}
 PY_VER_UNIT_TESTS="${PY_VER_UNIT_TESTS_3:=3.8.11}"
+pip install enum34 aenum
 
 # Clean out generated/ directory - except for .generated / __init__.py
 find test/generated -type f -not \( -name "*.expected" -or -name "__init__.py" \) -delete
