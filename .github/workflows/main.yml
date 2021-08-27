@@ -46,6 +46,11 @@ jobs:
               git clone https://github.com/yyuu/pyenv-virtualenv.git   $HOME/.pyenv/plugins/pyenv-virtualenv && \
               source $HOME/.bashrc && \
               pyenv install 3.8.11 && \
+              pyenv virtualenv 3.8.11 venv_project1 && \
+              pyenv versions && \
+              pyenv activate venv_project1 && \
+              pwd && \
+              ls && \
               pip install enum34 aenum && \
               export PATH="$HOME/.pyenv/bin:$PATH"
               eval "$(pyenv init -)"
