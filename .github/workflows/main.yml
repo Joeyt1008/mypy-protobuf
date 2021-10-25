@@ -59,10 +59,3 @@ jobs:
               ./run_test.sh && \
               deactivate'
               
-#${{ env.py }} -m pyenv .env && \
-#source .env/bin/activate && \
-#
-#              pyenv virtualenv 3.8.11 .env && \
-#              pyenv activate .env && \
-#              pyenv versions && \
-#              export PYENV_VIRTUALENV_DISABLE_PROMPT=1 && \
